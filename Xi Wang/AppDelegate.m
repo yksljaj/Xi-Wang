@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "HomeViewController.h"
+#import "NavViewControllerPlus.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +17,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:LanguageKey]) {
+        //默認設為英文
+        [[NSUserDefaults standardUserDefaults] setObject:@"en"  forKey:LanguageKey];
+    }
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    self.navController = [[NavViewControllerPlus alloc] initWithRootViewController:[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil]];
+    self.window.rootViewController = self.navController;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    NSError *categoryError = nil;
+    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&categoryError];
+    
+    if (!success)
+    {
+        NSLog(@"AppDelegate Debug - Error setting AVAudioSession category.  Because of this, there may be no sound. `%@`", categoryError);
+    }
     return YES;
 }
 
