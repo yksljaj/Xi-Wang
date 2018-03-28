@@ -57,6 +57,10 @@ static NSBundle *bundle = nil;
     //获取文件路径
     NSString *path = [[NSBundle mainBundle] pathForResource:string ofType:@"lproj"];
     
+    if(path==nil){
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+    }
+    
     bundle = [NSBundle bundleWithPath:path];//生成bundle
 }
 

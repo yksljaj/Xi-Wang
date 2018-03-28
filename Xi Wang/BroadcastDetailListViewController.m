@@ -27,7 +27,8 @@
     self.broadcastDetailTbv.dataSource = self;
     self.navigationController.navigationBar.translucent = NO;
     self.listLabel.backgroundColor=[UIColor colorWithRed:0.04 green:0.14 blue:0.25 alpha:1.0];
-    self.listLabel.text=_labelStr;
+    
+    
     NSDate *now=[NSDate date];
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setDay:-89];
@@ -45,6 +46,7 @@
             NSError * error = nil;
             self.dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             self.dataArray =(NSMutableArray *)[media handleData:self.dataDic withType:_listType];
+            
             NSLog(@"下載:%@",self.dataArray);
         }else{
             NSLog(@"下載錯誤:%@",error);
@@ -56,6 +58,9 @@
         
         [[NSOperationQueue mainQueue]addOperationWithBlock:^{
             [self.broadcastDetailTbv reloadData];
+            NSUInteger count=[[self.dataArray valueForKey:@"broadcastdetaillist"] count];
+            _labelStr=[_labelStr stringByAppendingString:[NSString stringWithFormat:@" (%lu)",(unsigned long)count]];
+            self.listLabel.text=_labelStr;
         }];
         // });
         
@@ -64,6 +69,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)viewWillAppear:(BOOL)animated {
+   
     switch (_listType) {
         case kListTypeBroadcastDetailList:
             self.navigationItem.title=@"廣播清單";

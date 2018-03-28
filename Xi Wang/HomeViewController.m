@@ -59,6 +59,12 @@
 
 - (IBAction)live:(id)sender {
     LiveViewController *lvc= [[LiveViewController alloc]init];
+    NSString *lan = [LanguageTool userLanguage];
+    if([lan isEqualToString:@"zh-Hans"]){//判断当前的语言，进行改变
+        lvc.listType=kListTypeVideoLive_CN;
+    }else{
+        lvc.listType=kListTypeVideoLive;
+    }
     NavViewControllerPlus *nav = [[NavViewControllerPlus alloc] initWithRootViewController:lvc];
     [self presentViewController:nav animated:YES completion:nil];
     

@@ -57,10 +57,10 @@ static NSString * const kViewControllerAccountID = @"4938530621001";
     NSURLSessionDataTask *dataTask=[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(error ==nil){
             NSError * error = nil;
-            NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
             self.dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             
             self.dataArray =(NSMutableArray *)[media handleData:self.dataDic withType:kListTypeVideoListWithImg];
+            
             NSLog(@"下載:%@",self.dataArray);
         }else{
             NSLog(@"下載錯誤:%@",error);
@@ -86,6 +86,10 @@ static NSString * const kViewControllerAccountID = @"4938530621001";
 -(void) actIndicatorEnd {
     _indicatorView.hidden=YES;
     [_activityIndicator stopAnimating];
+    NSUInteger count=[[_dataArray valueForKey:@"videodetail"] count];
+    NSString *btnStr=[NSString stringWithFormat:@"影片(%lu)",(unsigned long)count];
+    UIButton *btn=[[((LZPageViewController *)self.parentViewController) contentViews] viewWithTag:1];
+    [btn setTitle:btnStr forState:UIControlStateNormal];
 }
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"enter");
@@ -121,6 +125,8 @@ static NSString * const kViewControllerAccountID = @"4938530621001";
     
     media * item = [_dataArray valueForKey:@"videodetail"][indexPath.row];
     NSString *lan = [LanguageTool userLanguage];
+    
+    if(item.mediaBrightcoveID)
     if([lan isEqualToString:@"zh-Hans"]){//判断当前的语言，进行改变
         cell.videoTitleLabel.text = item.mediaTitle_cn;
     }else{
@@ -156,10 +162,11 @@ static NSString * const kViewControllerAccountID = @"4938530621001";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TableViewCell *cell = (TableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     BrightcoveViewController *bvc=[BrightcoveViewController new];
     media * item = [_dataArray valueForKey:@"videodetail"][indexPath.row];
     bvc.mediaBrightcoveID=item.mediaBrightcoveID;
-    bvc.mediaContent_tw=item.mediaContent_tw;
+    bvc.mediaTitle=cell.videoTitleLabel.text;
     NavViewControllerPlus *nav = [[NavViewControllerPlus alloc] initWithRootViewController:bvc];
     [self presentViewController:nav animated:YES completion:nil];
     //[self.navigationController pushViewController:bvc animated:YES];

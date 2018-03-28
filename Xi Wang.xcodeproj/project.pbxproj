@@ -64,7 +64,7 @@
 		40C378D9206354DD00E985B7 /* VLCPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C378C9206354DC00E985B7 /* VLCPlayer.m */; };
 		40C378DA206354DD00E985B7 /* VLCPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C378CB206354DC00E985B7 /* VLCPlayerView.m */; };
 		40C378DB206354DD00E985B7 /* VLCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C378CD206354DC00E985B7 /* VLCViewController.m */; };
-		40C378DD20638DEC00E985B7 /* ic_bf_ks@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40C378DC20638DEC00E985B7 /* ic_bf_ks@3x.png */; };
+		40DF2FA9206B9CFD008F2CBE /* LiveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DF2FA8206B9CFD008F2CBE /* LiveTableViewCell.xib */; };
 		40DF6E7C205F728000EDB97E /* VideoImgTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40DF6E7B205F728000EDB97E /* VideoImgTableViewCell.xib */; };
 		40F143772068A6DC00AA0730 /* Xi_Wang.strings in Resources */ = {isa = PBXBuildFile; fileRef = 40F143792068A6DC00AA0730 /* Xi_Wang.strings */; };
 		40FB0A19205BAABE00F4040B /* SegmentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40FB0A17205BAABE00F4040B /* SegmentedViewController.m */; };
@@ -181,7 +181,7 @@
 		40C378CB206354DC00E985B7 /* VLCPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCPlayerView.m; sourceTree = "<group>"; };
 		40C378CC206354DC00E985B7 /* VLCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCViewController.h; sourceTree = "<group>"; };
 		40C378CD206354DC00E985B7 /* VLCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCViewController.m; sourceTree = "<group>"; };
-		40C378DC20638DEC00E985B7 /* ic_bf_ks@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_bf_ks@3x.png"; sourceTree = "<group>"; };
+		40DF2FA8206B9CFD008F2CBE /* LiveTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LiveTableViewCell.xib; sourceTree = "<group>"; };
 		40DF6E7B205F728000EDB97E /* VideoImgTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoImgTableViewCell.xib; sourceTree = "<group>"; };
 		40F143782068A6DC00AA0730 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Xi_Wang.strings; sourceTree = "<group>"; };
 		40F1437A2068A73900AA0730 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Xi_Wang.strings"; sourceTree = "<group>"; };
@@ -305,6 +305,7 @@
 				409CED96205A6F4D008E0082 /* TableViewCell.m */,
 				409CED97205A6F4D008E0082 /* TableViewCell.xib */,
 				40DF6E7B205F728000EDB97E /* VideoImgTableViewCell.xib */,
+				40DF2FA8206B9CFD008F2CBE /* LiveTableViewCell.xib */,
 				409CED8F205A1DAB008E0082 /* media.h */,
 				409CED90205A1DAB008E0082 /* media.m */,
 				409CED92205A512F008E0082 /* ImageDownloader.h */,
@@ -367,7 +368,6 @@
 				40C378BD206354DC00E985B7 /* CustomSlider.m */,
 				40C378BE206354DC00E985B7 /* ic_bf_ks.png */,
 				40C378BF206354DC00E985B7 /* ic_bf_ks@2x.png */,
-				40C378DC20638DEC00E985B7 /* ic_bf_ks@3x.png */,
 				40C378C0206354DC00E985B7 /* ic_bf_zt.png */,
 				40C378C1206354DC00E985B7 /* ic_bf_zt@2x.png */,
 				40C378C2206354DC00E985B7 /* ic_jt_bf@2x.png */,
@@ -549,11 +549,11 @@
 				409CED99205A6F4D008E0082 /* TableViewCell.xib in Resources */,
 				409BE5FE2059243E008D4B6B /* play.png in Resources */,
 				40C378D3206354DD00E985B7 /* ic_jt_bf@2x.png in Resources */,
-				40C378DD20638DEC00E985B7 /* ic_bf_ks@3x.png in Resources */,
 				40C378D4206354DD00E985B7 /* ic_kj_bf@2x.png in Resources */,
 				4008C56620610F8D00DD4B3E /* BroadcastDetailListViewController.xib in Resources */,
 				40A742432057BEE400F8CCDE /* RequestVideosViewController.xib in Resources */,
 				40FD6FA12064DC2700726953 /* HomeViewController.xib in Resources */,
+				40DF2FA9206B9CFD008F2CBE /* LiveTableViewCell.xib in Resources */,
 				409BE5FB20592436008D4B6B /* pause.png in Resources */,
 				40C378D0206354DD00E985B7 /* ic_bf_ks@2x.png in Resources */,
 				408A0D32205F9A68003BCFC2 /* VideoDetailViewController.xib in Resources */,

@@ -59,7 +59,6 @@
  */
 @property (nonatomic,strong) UIActivityIndicatorView *activityView;
 
-@property (nonatomic,strong) UIView *bottomView;// 底部View
 - (void)changePlayBtnState:(BOOL)select;
 @property (nonatomic, copy) void (^rotateBlock)(NSInteger result);
 @end

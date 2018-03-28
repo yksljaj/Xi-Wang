@@ -14,7 +14,7 @@
 #define RGB(r,g,b,a) [UIColor colorWithRed:(r/255.0) green:(g/255.0) blue:(b/255.0) alpha:(a)]
 #define titleFontSize 20.0
 #define titleColor [UIColor whiteColor]
-#define backgroundViewColor RGB(0, 0, 0, 0.6)
+#define backgroundViewColor RGB(1, 0, 0, 0.6)
 #define space 15.0
 #define alphaDef 0.5
 #define viewHeight 200.0
@@ -36,6 +36,7 @@ typedef enum {
 
 /*********************底部栏*************************************/
 
+@property (nonatomic,strong) UIView *bottomView;// 底部View
 // 开始播放(暂停)按钮
 @property (nonatomic,strong) UIButton *playBtn;
 @property (nonatomic,strong) CustomSlider *sliderView; // 滑动条
@@ -45,6 +46,9 @@ typedef enum {
 @property (nonatomic,strong) UILabel *endTimeLabel;
 
 @property (nonatomic, strong) UIButton *rotateBtn; //!< 旋转按钮
+
+@property (nonatomic,strong) UIView *edgeViewLeft; //邊框
+@property (nonatomic,strong) UIView *edgeViewRight; //邊框
 
 /*********************快进/快退显示********************************/
 @property (nonatomic,strong) UIView *baseView;// 快进/快退底View
@@ -96,7 +100,7 @@ typedef enum {
 {
     // 承载视频view
     self.playView = [[UIView alloc] init];
-    self.playView.backgroundColor = [UIColor blackColor];
+    //self.playView.backgroundColor = [UIColor blackColor];
     //[self addSubview:self.playView];
     
     // 顶部View
@@ -112,7 +116,7 @@ typedef enum {
     
     // 底部view
     self.bottomView = [[UIView alloc] init];
-    self.bottomView.backgroundColor = backgroundViewColor;
+    self.bottomView.backgroundColor = [UIColor darkGrayColor];
     [self addSubview:self.bottomView];
     
     //名字
@@ -154,6 +158,14 @@ typedef enum {
     [self.sliderView addTarget:self action:@selector(sliderChange) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:self.sliderView];
     
+    //邊框
+    self.edgeViewLeft=[[UIView alloc]init];
+    self.edgeViewLeft.backgroundColor=[UIColor whiteColor];
+    self.edgeViewRight=[[UIView alloc]init];
+    self.edgeViewRight.backgroundColor=[UIColor whiteColor];
+    [self.bottomView addSubview:self.edgeViewLeft];
+    [self.bottomView addSubview:self.edgeViewRight];
+    
     // 旋转
 //    self.rotateBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 ////    [self.rotateBtn setTitle:CustomLocalizedString(@"旋转", nil) forState:UIControlStateNormal];
@@ -187,6 +199,12 @@ typedef enum {
     self.progressView.progressTintColor = RGB(240,113,74,1.0);
     [self.progressView setProgress:0.0];
     [self.baseView addSubview:self.progressView];
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.activityView setFrame:CGRectMake(self.bottomView.bounds.origin.x+10, self.bottomView.bounds.origin.y, 100, 100)];
+    [self.activityView setHidesWhenStopped:YES]; // 旋转时隐藏
+    [self.bottomView addSubview:self.activityView];
+    //[self.activityView startAnimating]; // 开始旋转
     
     // 亮度、音量
 //    self.lightView = [UIView new];
@@ -535,6 +553,19 @@ typedef enum {
     CGFloat sliderW = width - sliderX - space - 60;
     CGFloat sliderY = viewHeight*3/5;
     self.sliderView.frame = CGRectMake(sliderX, sliderY, sliderW, sliderH);
+    //邊框
+    CGFloat edgeLX=0;
+    CGFloat edgeLY=0;
+    CGFloat edgeLW=10;
+    CGFloat edgeLH=self.bottomView.frame.size.height;
+    self.edgeViewLeft.frame=CGRectMake(edgeLX, edgeLY, edgeLW, edgeLH);
+    
+    CGFloat edgeRX=self.bottomView.frame.size.width-10;
+    CGFloat edgeRY=0;
+    CGFloat edgeRW=10;
+    CGFloat edgeRH=self.bottomView.frame.size.height;
+    self.edgeViewRight.frame=CGRectMake(edgeRX, edgeRY, edgeRW, edgeRH);
+    
     
     // 旋转
     self.rotateBtn.frame = CGRectMake(CGRectGetMaxX(self.sliderView.frame) + (width - CGRectGetMaxX(self.sliderView.frame) - 45)/2, (bottomH - 45)/2, 45, 45);

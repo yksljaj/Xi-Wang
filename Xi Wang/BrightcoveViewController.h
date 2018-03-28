@@ -10,5 +10,5 @@
 @import BrightcovePlayerSDK;
 @interface BrightcoveViewController : UIViewController<BCOVPlaybackControllerDelegate>
 @property (nonatomic,copy) NSString * mediaBrightcoveID;
-@property (nonatomic,copy) NSString * mediaContent_tw;
+@property (nonatomic,copy) NSString * mediaTitle;
 @end

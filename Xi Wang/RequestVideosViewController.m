@@ -23,7 +23,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBackButtonWithTitle:@"回主頁"];
+    
+    NSString *lan = [LanguageTool userLanguage];
+    if([lan isEqualToString:@"zh-Hans"]){//判断当前的语言，进行改变
+        [self addBackButtonWithTitle:@"回主页"];
+    }else{
+        [self addBackButtonWithTitle:@"回主頁"];
+    }
+
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
     self.navigationController.navigationBar.translucent=NO;
@@ -157,13 +164,13 @@
     media * item = [_dataArray valueForKey:@"mainclass"][indexPath.row];
     NSString *lan = [LanguageTool userLanguage];
     if([lan isEqualToString:@"zh-Hans"]){//判断当前的语言，进行改变
-        LZPageViewController *pageVc = [[LZPageViewController alloc] initWithTitles: @[@"影片分类",@"影片",] controllersClass:@[[SegmentedViewController class],[VideoDetailViewController class]]];
-        pageVc.videoInfoLabel.text=item.mediaTitle_cn;
+        LZPageViewController *pageVc = [[LZPageViewController alloc] initWithTitles: @[@"影片分类",@"影片(0)",] controllersClass:@[[SegmentedViewController class],[VideoDetailViewController class]]];
+        pageVc.mediaTitle=item.mediaTitle_cn;
         pageVc.videoVrid=item.mediaVrid;
         [self.navigationController pushViewController:pageVc animated:YES];
     }else{
-        LZPageViewController *pageVc = [[LZPageViewController alloc] initWithTitles: @[@"影片分類",@"影片",] controllersClass:@[[SegmentedViewController class],[VideoDetailViewController class]]];
-        pageVc.videoInfoLabel.text=item.mediaTitle_tw;
+        LZPageViewController *pageVc = [[LZPageViewController alloc] initWithTitles: @[@"影片分類",@"影片(0)",] controllersClass:@[[SegmentedViewController class],[VideoDetailViewController class]]];
+        pageVc.mediaTitle=item.mediaTitle_tw;
         pageVc.videoVrid=item.mediaVrid;
         //[self.navigationController pushViewController:pageVc animated:YES];
         NavViewControllerPlus *nav = [[NavViewControllerPlus alloc] initWithRootViewController:pageVc];

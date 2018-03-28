@@ -44,21 +44,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
     self.navigationController.navigationBar.translucent = NO;
     self.title = self.playName;
     self.videoAllTime = 0;
     
     [self tarnsformView];
     // 添加播放的承载View
+    [self.vlcPlayerView.activityView startAnimating];
     [self addVLCPalyerView];
     
     // 菊花
-    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [self.activityView setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 100, 100)];
-    [self.activityView setHidesWhenStopped:YES]; // 旋转时隐藏
-    [self.activityView startAnimating]; // 开始旋转
-    [self.vlcPlayerView addSubview:self.activityView];
+//    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    [self.activityView setFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 100, 100)];
+//    [self.activityView setHidesWhenStopped:YES]; // 旋转时隐藏
+//    [self.activityView startAnimating]; // 开始旋转
+    //[self.vlcPlayerView addSubview:self.activityView];
+    
     
     
     
@@ -166,7 +168,7 @@
     //承载播放的视图初始化(自定义播放界面可在这里做UI定制)
     self.vlcPlayerView = [[VLCPlayerView alloc] initWithFrame:self.view.bounds];
     // 设置视频名称
-    self.vlcPlayerView.videoName = self.playName;
+    self.vlcPlayerView.videoName = @"連接中";
     // 设置播放监听回调
     __weak typeof(self) weakSelf = self;
     self.vlcPlayerView.playBlock = ^(UIButton *playBtn){
@@ -315,8 +317,9 @@
     // 刷新最新时间和播放进度
     [self updateTime];
     // 停止菊花加载
-    if (self.activityView.isAnimating) {
-        [self.activityView stopAnimating];
+    if (self.vlcPlayerView.activityView.isAnimating) {
+        [self.vlcPlayerView.activityView stopAnimating];
+        self.vlcPlayerView.videoName = self.playName;
     }
 }
 
@@ -343,31 +346,35 @@
         {
             [_player.player stop]; // 手动调用一次停止(一遍再次点击播放)
             [self.vlcPlayerView changePlayBtnState:NO];
-            if (self.activityView.isAnimating) {
-                [self.activityView stopAnimating];
+            if (self.vlcPlayerView.activityView.isAnimating) {
+                [self.vlcPlayerView.activityView stopAnimating];
+                self.vlcPlayerView.videoName =self.playName;
             }
         }
             break;
         case VLCMediaPlayerStateBuffering: // 播放中缓冲状态
         {
             // 显示菊花
-            if (!self.activityView.isAnimating) {
-                self.activityView.center = self.vlcPlayerView.center;
-                [self.activityView startAnimating];
+            if (!self.vlcPlayerView.activityView.isAnimating) {
+                //self.vlcPlayerView.activityView.center = self.vlcPlayerView.center;
+                [self.vlcPlayerView.activityView startAnimating];
+                self.vlcPlayerView.videoName = @"連接中";
             }
         }
             break;
         case VLCMediaPlayerStatePlaying: // 被暂停后开始播放
         {
-            if (self.activityView.isAnimating) {
-                [self.activityView stopAnimating];
+            if (self.vlcPlayerView.activityView.isAnimating) {
+                [self.vlcPlayerView.activityView stopAnimating];
+                self.vlcPlayerView.videoName =self.playName;
             }
         }
             break;
         case VLCMediaPlayerStatePaused:  // 播放后被暂停
         {
-            if (self.activityView.isAnimating) {
-                [self.activityView stopAnimating];
+            if (self.vlcPlayerView.activityView.isAnimating) {
+                [self.vlcPlayerView.activityView stopAnimating];
+                self.vlcPlayerView.videoName = self.playName;
             }
         }
             break;

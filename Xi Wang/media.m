@@ -24,7 +24,15 @@
             self.mediaBroadcastWeekly=[array valueForKey:@"weekly"];
             self.mediaBroadcastHostname=[array valueForKey:@"hostname"];
 
-        }else{
+        }else if(listType==kListTypeVideoLive || listType==kListTypeVideoLive_CN){
+            self.mediaTitle_tw = [array valueForKey:@"thetitle_tw"];
+            self.mediaTitle_cn = [array valueForKey:@"thetitle_cn"];
+            self.mediaVrid= [array valueForKey:@"vrid"];
+            self.mediaXdate= [array valueForKey:@"xdate"];
+            self.mediaXtime= [array valueForKey:@"xtime"];
+            
+        }
+        else{
             self.mediaTitle_tw = [array valueForKey:@"thetitle_tw"];
             self.mediaTitle_cn = [array valueForKey:@"thetitle_cn"];
             self.mediaVrid= [array valueForKey:@"vrid"];
@@ -134,6 +142,17 @@
         }
         broadcastDetailArray=[[broadcastDetailArray reverseObjectEnumerator] allObjects];
         [resultDic setObject:broadcastDetailArray forKey:@"broadcastdetaillist"];
+    }else if(listType==kListTypeVideoLive||listType==kListTypeVideoLive_CN){
+        NSMutableArray *classArray=[NSMutableArray new];
+        NSMutableArray * originalArray =[dic objectForKey:@""];
+        
+        for (int i=0 ;i<[dic count]; i++) {
+            //NSMutableArray * liveArr =[[dic objectForKey:@"categories"]objectForKey:[originalArray objectAtIndex:i]];
+            media * item = [[media alloc] initWithArray:(NSArray *)dic withType:listType];
+            [classArray addObject:item];
+            
+        }
+        [resultDic setObject:classArray forKey:@"live"];
     }
     
     return resultDic;

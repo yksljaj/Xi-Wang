@@ -9,6 +9,7 @@
 #import "BroadcastViewController.h"
 #import "TableViewCell.h"
 #import "VLCViewController.h"
+#import "LanguageTool.h"
 
 @interface BroadcastViewController ()
 
@@ -18,7 +19,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addBackButtonWithTitle:@"回主頁"];
+    NSString *lan = [LanguageTool userLanguage];
+    if([lan isEqualToString:@"zh-Hans"]){//判断当前的语言，进行改变
+        [self addBackButtonWithTitle:@"回主页"];
+    }else{
+        [self addBackButtonWithTitle:@"回主頁"];
+    }
+    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
     self.navigationController.navigationBar.translucent=NO;
@@ -192,7 +199,7 @@
         if(_listType==kListTypeBroadcastList_CN){
             vc.listType=kListTypeBroadcastDetailList_CN;
             vc.broadcastVrid=item.mediaVrid;
-            NSString *labelStr=[NSString stringWithFormat:@"%@-%@ %@",item.mediaBroadcastHostname,item.mediaTitle_cn,item.mediaBroadcastWeekly];
+            NSString *labelStr=[NSString stringWithFormat:@"%@-%@ %@ ",item.mediaBroadcastHostname,item.mediaTitle_cn,item.mediaBroadcastWeekly];
             vc.labelStr=labelStr;
         }else{
             vc.listType=kListTypeBroadcastDetailList;
@@ -231,50 +238,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    switch (_listType) {
-//        case kListTypeVideoList:
-//        case kListTypeVideoList_CN:
-//        case kListTypeBroadcastList:
-//        case kListTypeBroadcastList_CB:
-//            return 40;
-//            break;
-//
-//        default:
-//            break;
-//    }
-//    return 0;
-//}
-//
-//- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44)];
-//    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 7, tableView.bounds.size.width, 30)];
-//    titleLabel.textColor=[UIColor whiteColor];
-//    titleLabel.font = [UIFont boldSystemFontOfSize:20];
-//    if (section == 0)
-//        switch (_listType) {
-//            case kListTypeVideoMain:
-//                titleLabel.text = @"點播主類別";
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    [headerView addSubview:titleLabel];
-//        [headerView setBackgroundColor:[UIColor darkGrayColor]];
-//    return headerView;
-//}
-
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 128;
-//}
-//
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//}
 
 
 

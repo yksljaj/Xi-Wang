@@ -20,10 +20,16 @@ typedef enum  {
     kListTypeBroadcastList_CN,
     kListTypeBroadcastDetailList,
     kListTypeBroadcastDetailList_CN,
+    kListTypeVideoListMoreInfo,
+    kListTypeVideoListMoreInfo_CN,
+    kListTypeVideoLive,
+    kListTypeVideoLive_CN,
     
 } ENUM_LIST_TYPE;
 
 @interface media : NSObject
+@property (nonatomic,copy) NSString * mediaXdate;
+@property (nonatomic,copy) NSString * mediaXtime;
 @property (nonatomic,copy) NSString * mediaBroadcastWeekly;
 @property (nonatomic,copy) NSString * mediaBroadcastHostname;
 @property (nonatomic,copy) NSString * mediaBroadcastURL;

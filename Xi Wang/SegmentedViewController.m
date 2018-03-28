@@ -17,6 +17,7 @@
 @interface SegmentedViewController ()
 {
     NSString *vcTitle;
+    NSString *str;
 }
 
 @end
@@ -30,7 +31,12 @@
     self.videoListTableView.delegate = self;
     self.videoListTableView.dataSource = self;
     _videoVrid=((LZPageViewController *)self.parentViewController).videoVrid;
-    NSURL *url=[NSURL URLWithString:@"http://210.71.250.70/video_2017/api/index.php?cmd=cate&pvid=3767205bcd683e93a47f"];
+    [self fetchData:@"http://210.71.250.70/video_2017/api/index.php?cmd=cate&pvid=3767205bcd683e93a47f"];
+    
+}
+
+-(void)fetchData:(NSString *)urlStr{
+    NSURL *url=[NSURL URLWithString:urlStr];
     NSURLSessionConfiguration *config=[NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session=[NSURLSession sessionWithConfiguration:config];
     NSURLSessionDataTask *dataTask=[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -91,7 +97,6 @@
         media * item = [_dataArray valueForKey:self.videoVrid][indexPath.row];
         cell.textLabel.text = item.mediaTitle_tw;
     }
-    
     cell.backgroundColor=[UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
     cell.textLabel.textColor=[UIColor whiteColor];
     return cell;
@@ -121,7 +126,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UITableViewCell *cell = (UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     media * item = [_dataArray valueForKey:self.videoVrid][indexPath.row];
+    NSString *str=((LZPageViewController *)self.parentViewController).mediaTitle;
+    str=[[str stringByAppendingString:@"-"] stringByAppendingString:cell.textLabel.text];
+    ((LZPageViewController *)self.parentViewController).videoInfoLabel.text=str;
     //_videoVrid=item.mediaVrid;
     //vcTitle=@"影片";
     UIButton *btn=[[((LZPageViewController *)self.parentViewController) contentViews] viewWithTag:1];

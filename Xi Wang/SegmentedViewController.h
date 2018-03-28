@@ -15,5 +15,6 @@
 @property NSString *videoVrid;
 @property NSDictionary *dataDic;
 @property NSMutableArray *dataArray;
+@property NSString *mediaTitle;
 
 @end

@@ -11,4 +11,7 @@
 @interface TableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *videoImg;
 @property (strong, nonatomic) IBOutlet UILabel *videoTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *xDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *xTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @end
